@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
+import { ThemeProvider } from "@/components/theme-provider";
 import { Inter } from 'next/font/google'
 import { SessionProvider } from 'next-auth/react'
 import { auth } from '@/auth'
+import { cn } from "@/lib/utils";
 import './globals.css'
 import { Toaster } from "@/components/ui/sonner";
 
@@ -22,9 +24,19 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="en">
-        <body className={inter.className}>
-          <Toaster />
-          {children}
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased",
+            inter.className
+          )}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+          </ThemeProvider>
         </body>
       </html>
     </SessionProvider>
