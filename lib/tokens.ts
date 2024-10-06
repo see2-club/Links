@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { getVerificationTokenByEmail } from "@/data/verificiation-token";
 import { getPasswordResetTokenByEmail } from "@/data/password-reset-token";
 import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
+import { getLoginTokenByEmail } from "@/data/login-token";
 
 export const generateTwoFactorToken = async (email: string) => {
   const token = crypto.randomInt(100_000, 1_000_000).toString();
@@ -77,4 +78,29 @@ export const generateVerificationToken = async (email: string) => {
   });
 
   return verficationToken;
+};
+
+export const generateLoginToken = async (email: string) => {
+  const token = uuidv4();
+  const expires = new Date();
+  expires.setHours(expires.getHours() + 1); // 設定1小時後過期
+
+  const existingToken = await getLoginTokenByEmail(email);
+
+  if (existingToken) {
+    await db.loginToken.delete({
+      where: { id: existingToken.id }
+    });
+  }
+
+  
+  const loginToken = await db.loginToken.create({
+    data: {
+      email,
+      token,
+      expires,
+    },
+  });
+
+  return loginToken;
 };

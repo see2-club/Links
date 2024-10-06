@@ -7,6 +7,7 @@ const nextConfig = {
         hostname: "i.pravatar.cc",
       },
     ],
+    domains: ['randomuser.me'],
   },
   
 };

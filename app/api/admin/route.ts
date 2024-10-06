@@ -1,6 +1,11 @@
 import { currentRole } from "@/lib/auth";
-import { UserRole } from "@prisma/client";
+// import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
+
+enum UserRole {
+  ADMIN = "ADMIN",
+  USER = "USER",
+}
 
 export async function GET() {
   const role = await currentRole();

@@ -1,5 +1,5 @@
 import { Poppins } from "next/font/google";
-
+import EyesText from "@/components/magicui/eyes-text";
 import { cn } from "@/lib/utils";
 
 const font = Poppins({
@@ -20,7 +20,8 @@ export const Header = ({
         "text-3xl font-semibold",
         font.className,
       )}>
-        🔐 Auth
+        {/* 🔐 Auth */}
+        <EyesText text="See Link" />
       </h1>
       <p className="text-muted-foreground text-sm">
         {label}

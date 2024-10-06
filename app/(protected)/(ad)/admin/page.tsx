@@ -5,8 +5,12 @@ import { RoleGate } from "@/components/auth/role-gate";
 import { FormSuccess } from "@/components/form-success";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { UserRole } from "@prisma/client";
 import { toast } from "sonner";
+
+enum UserRole {
+  ADMIN = "ADMIN",
+  USER = "USER",
+}
 
 const AdminPage = () => {
   const onServerActionClick = () => {

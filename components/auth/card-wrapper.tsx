@@ -1,6 +1,6 @@
 "use client";
 
-import { 
+import {
   Card,
   CardContent,
   CardFooter,
@@ -8,8 +8,9 @@ import {
 } from "@/components/ui/card";
 import { Header } from "@/components/auth/header";
 import { Social } from "@/components/auth/social";
+import { Crypto } from "@/components/auth/crypto";
 import { BackButton } from "@/components/auth/back-button";
-
+import { Separator } from "@/components/ui/separator";
 interface CardWrapperProps {
   children: React.ReactNode;
   headerLabel: string;
@@ -36,6 +37,13 @@ export const CardWrapper = ({
       {showSocial && (
         <CardFooter>
           <Social />
+
+        </CardFooter>
+      )}
+      <Separator className="my-4" />
+      {showSocial && (
+        <CardFooter>
+          <Crypto />
         </CardFooter>
       )}
       <CardFooter>

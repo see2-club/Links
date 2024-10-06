@@ -29,6 +29,7 @@ export const RegisterForm = () => {
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
+      handle: "",
       email: "",
       password: "",
       name: "",
@@ -71,7 +72,25 @@ export const RegisterForm = () => {
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="John Doe"
+                      placeholder="Your name"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="handle"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Handle</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      placeholder="Your special handle"
+                      type="text"
                     />
                   </FormControl>
                   <FormMessage />
@@ -88,7 +107,7 @@ export const RegisterForm = () => {
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="john.doe@example.com"
+                      placeholder="see.2.link@example.com"
                       type="email"
                     />
                   </FormControl>

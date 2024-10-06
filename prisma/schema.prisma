@@ -1,13 +1,173 @@
-// prisma/schema.prisma
-datasource db {
-  provider  = "postgresql"
-  url  	    = env("DATABASE_URL")
-  // directUrl = env("DIRECT_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
   output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                    String                 @id @default(cuid())
+  name                  String?
+  email                 String?                @unique
+  emailVerified         DateTime?
+  image                 String?
+  password              String?
+  role                  UserRole               @default(USER)
+  isTwoFactorEnabled    Boolean                @default(false)
+  handle                String?                @unique
+  accounts              Account[]
+  linkPages             LinkPage[]
+  twoFactorConfirmation TwoFactorConfirmation?
+}
+
+model LinkPage {
+  id               String            @id @default(cuid())
+  url              String            @unique
+  title            String?
+  description      String?
+  image            String?
+  userId           String
+  template         Json?
+  isComplete       Boolean           @default(false)
+  isPublic         Boolean           @default(false)
+  isTemplate       Boolean           @default(false)
+  isPublished      Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  isEditing        Boolean           @default(false)
+  profile          Json?
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  web3Assets       Web3Asset[]       @relation("LinkPageWeb3Assets")
+  web3CryptoAssets Web3CryptoAsset[] @relation("LinkPageWeb3CryptoAssets")
+
+  @@index([userId])
+}
+
+model Account {
+  id                String            @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  profile           Json?
+  achievement       Json?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  web3Assets        Web3Asset[]       @relation("AccountWeb3Assets")
+  web3CryptoAssets  Web3CryptoAsset[] @relation("AccountWeb3CryptoAssets")
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model LoginToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Web3Asset {
+  id              String     @id @default(cuid())
+  type            AssetType  @default(NFT)
+  chain           String
+  provider        String
+  walletAddress   String
+  contractAddress String?
+  tokenId         String?
+  name            String
+  symbol          String?
+  amount          Float?
+  decimals        Int?
+  metadata        Json?
+  imageUrl        String?
+  externalUrl     String?
+  ownerOf         String
+  lastUpdated     DateTime
+  blockNumber     String?
+  verified        Boolean?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  accounts        Account[]  @relation("AccountWeb3Assets")
+  linkPages       LinkPage[] @relation("LinkPageWeb3Assets")
+
+  @@index([walletAddress])
+}
+
+model Web3CryptoAsset {
+  id                        String     @id @default(cuid())
+  type                      AssetType  @default(TOKEN)
+  walletAddress             String
+  contractAddress           String
+  symbol                    String
+  name                      String
+  logo                      String?
+  decimals                  Int
+  balance                   Float
+  balanceFormatted          String?
+  usdPrice                  Float?
+  usdValue                  Float?
+  usdPrice24hrPercentChange Float?
+  usdValue24hrUsdChange     Float?
+  possibleSpam              Boolean?
+  verifiedContract          Boolean
+  nativeToken               Boolean?
+  holders                   Int?
+  chainId                   String
+  blockchain                String
+  provider                  String
+  network                   String
+  createdAt                 DateTime   @default(now())
+  updatedAt                 DateTime   @updatedAt
+  accounts                  Account[]  @relation("AccountWeb3CryptoAssets")
+  linkPages                 LinkPage[] @relation("LinkPageWeb3CryptoAssets")
+
+  @@index([walletAddress])
 }
 
 enum UserRole {
@@ -15,70 +175,8 @@ enum UserRole {
   USER
 }
 
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          UserRole @default(USER)
-  accounts      Account[]
-  isTwoFactorEnabled Boolean @default(false)
-  twoFactorConfirmation TwoFactorConfirmation?
-}
-
-model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model VerificationToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
-  expires DateTime
-
-  @@unique([email, token])
-}
-
-model PasswordResetToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
-  expires DateTime
-
-  @@unique([email, token])
-}
-
-model TwoFactorToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
-  expires DateTime
-
-  @@unique([email, token])
-}
-
-model TwoFactorConfirmation {
-  id String @id @default(cuid())
-
-  userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId])
+enum AssetType {
+  TOKEN
+  NFT
+  OTHER
 }

@@ -35,8 +35,12 @@ import { Input } from "@/components/ui/input";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { UserRole } from "@prisma/client";
+// import { UserRole } from "@prisma/client";
 
+enum UserRole {
+  ADMIN = "ADMIN",
+  USER = "USER",
+}
 const SettingsPage = () => {
   const user = useCurrentUser();
 

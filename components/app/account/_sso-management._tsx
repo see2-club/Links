@@ -1,0 +1,201 @@
+"use client"
+
+/* ts-ignore */
+import { useState } from "react";
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { X } from "lucide-react"
+import * as Icons from "lucide-react"
+import { signIn } from "next-auth/react";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { useSearchParams } from "next/navigation";
+import { Account } from "@prisma/client";
+
+import { useAppKit, useWalletInfo } from '@reown/appkit/react'
+
+
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+
+
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+
+
+interface SSOProvider {
+  id: string
+  name: string
+  icon: string
+  color: string
+}
+
+const ssoProviders: SSOProvider[] = [
+  { id: "ethereum", name: "Ethereum", icon: "Ethereum", color: "bg-blue-600 hover:bg-blue-700" },
+  { id: "discord", name: "Discord", icon: "Discord", color: "bg-blue-600 hover:bg-blue-700" },
+  { id: "google", name: "Google", icon: "Google", color: "bg-red-500 hover:bg-red-600" },
+  { id: "facebook", name: "Facebook", icon: "Facebook", color: "bg-blue-600 hover:bg-blue-700" },
+  { id: "github", name: "GitHub", icon: "Github", color: "bg-gray-800 hover:bg-gray-900" },
+  { id: "linkedin", name: "LinkedIn", icon: "Linkedin", color: "bg-blue-700 hover:bg-blue-800" },
+  { id: "twitter", name: "Twitter", icon: "Twitter", color: "bg-sky-500 hover:bg-sky-600" },
+  { id: "apple", name: "Apple", icon: "Apple", color: "bg-black hover:bg-gray-800" },
+]
+
+// const initialSsoAccounts: SSOAccount[] = [
+//   { id: 1, provider: "google", email: "user1@gmail.com" },
+//   { id: 2, provider: "google", email: "user2@gmail.com" },
+//   { id: 3, provider: "facebook", email: "user@facebook.com" },
+//   { id: 4, provider: "github", email: "user@github.com" },
+// ]
+
+export function Address() {
+  const { connection } = useConnection();
+  const { publicKey } = useWallet();
+  const [balance, setBalance] = useState<number>(0);
+
+  // code for the `getAirdropOnClick` function here
+  const getAirdropOnClick = () => {
+    console.log('getAirdropOnClick')
+  };
+
+  // code for the `getBalanceEvery10Seconds` and useEffect code here
+
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-evenly p-24">
+      {publicKey ? (
+        <div className="flex flex-col gap-4">
+          <h1>Your Public key is: {publicKey?.toString()}</h1>
+          <h2>Your Balance is: {balance} SOL</h2>
+          <div>
+            <button
+              onClick={getAirdropOnClick}
+              type="button"
+              className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            >
+              Get Airdrop
+            </button>
+          </div>
+        </div>
+      ) : (
+        <h1>Wallet is not connected</h1>
+      )}
+    </main>
+  );
+}
+
+function Web3Lab() {
+  const { open, close } = useAppKit()
+  const { walletInfo } = useWalletInfo()
+
+  return (
+    <div>
+      <div className="border hover:border-slate-900 rounded">
+        <WalletMultiButton style={{}} />
+      </div>
+      {/* <h1>balance {balance}</h1> */}
+      <w3m-button />
+      <Button onClick={() => open()} >
+        Open
+      </Button>
+      <Button onClick={() => close()} >
+        Close
+      </Button>
+      <pre>
+        {JSON.stringify(walletInfo, null, 2)}
+      </pre>
+
+    </div>
+  )
+}
+// @ts-ignore
+export default function SSOManagementPage({ accounts }: { accounts: Account[] }) {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+
+  const [ssoAccounts, setSsoAccounts] = useState<Account[]>(accounts)
+
+  const handleBindSSO = (provider: "google" | "discord" | "github" | "auth0" | "twitter" | "instagram" | "facebook" | "telegram" | "apple") => {
+    signIn(provider, {
+      callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT,
+    });
+    console.log(`Binding SSO for provider: ${provider}`)
+  }
+
+  const handleUnbindSSO = (accountId: number) => {
+    setSsoAccounts(ssoAccounts.filter(account => account.id.toString() !== accountId.toString()))
+  }
+
+  const IconComponent = ({ name }: { name: string }) => {
+    const Icon = (Icons as any)[name]
+    return Icon ? <Icon className="h-5 w-5" /> : null
+  }
+
+  return (
+
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle className="text-xl">管理您的單一登入 (SSO) 帳號</CardTitle>
+        <CardDescription>查看和管理您的 SSO 連接</CardDescription>
+        <Web3Lab />
+        <Address />
+      </CardHeader>
+      <CardContent>
+        <Tabs defaultValue="current" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 mb-4">
+            <TabsTrigger value="current">當前帳號</TabsTrigger>
+            <TabsTrigger value="available">可用提供商</TabsTrigger>
+          </TabsList>
+          <TabsContent value="current">
+            <ScrollArea className="min-h-[400px] w-full rounded-md border p-2 sm:p-4">
+              {ssoProviders.map((provider) => (
+                <div key={provider.id} className="mb-4">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 flex items-center">
+                    <IconComponent name={provider.icon} />
+                    <span className="ml-2">{provider.name}</span>
+                  </h3>
+                  {ssoAccounts.filter((account) => account.provider === provider.id).length > 0 ? (
+                    ssoAccounts
+                      .filter((account) => account.provider === provider.id)
+                      .map((account) => (
+                        <div key={account.id} className="flex items-center justify-between py-2 px-3 bg-gray-400 rounded-md mb-2 text-sm">
+                          {/* @ts-ignore */}
+                          <span className="truncate flex-grow mr-2">
+                            {/* {typeof account.profile === 'object' && account.profile !== null
+                              ? account.profile.name || account.profile.email || account.profile.username || "無可用資訊"
+                              : "無可用資訊"} */}
+                          </span>
+                          {/* @ts-ignore */}
+                          <Button variant="ghost" size="sm" onClick={() => handleUnbindSSO(account.id as any)} className="shrink-0">
+                            <X className="h-4 w-4" />
+                            <span className="sr-only">解除綁定</span>
+                          </Button>
+                        </div>
+                      ))
+                  ) : (
+                    <p className="text-gray-500 text-sm">尚未綁定帳號</p>
+                  )}
+                </div>
+              ))}
+            </ScrollArea>
+          </TabsContent>
+          <TabsContent value="available">
+            <ScrollArea className="h-[400px] w-full rounded-md border p-2 sm:p-4">
+              <div className="grid grid-cols-1 gap-3">
+                {ssoProviders.map((provider) => (
+                  <Button
+                    key={provider.id}
+                    className={`w-full justify-start space-x-2 ${provider.color}`}
+                    onClick={() => handleBindSSO(provider.id as any)}
+                  >
+                    <IconComponent name={provider.icon} />
+                    <span>{provider.name}</span>
+                  </Button>
+                ))}
+              </div>
+            </ScrollArea>
+          </TabsContent>
+        </Tabs>
+      </CardContent>
+    </Card>
+
+  )
+}

@@ -5,10 +5,14 @@ export type ExtendedUser = DefaultSession["user"] & {
   role: UserRole;
   isTwoFactorEnabled: boolean;
   isOAuth: boolean;
+  handle: string;
+  linkPage: LinkPage;
 };
 
 declare module "next-auth" {
-  interface Session {
+  interface Session extends SIWESession {
     user: ExtendedUser;
+    address: string
+    chainId: number
   }
 }
