@@ -1,4 +1,5 @@
 "use client";
+import { WalletButton } from '@/providers/solana-provider';
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -106,6 +107,8 @@ export function SiteHeader() {
             <Logo  className="h-[32px]" />
             See2.link
           </Link>
+          <w3m-button />
+          <WalletButton />
           <div className="ml-auto flex h-full items-center">
             <Link className="mr-6 text-sm" href="/auth/signin">
               Log in

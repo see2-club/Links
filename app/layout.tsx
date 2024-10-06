@@ -6,6 +6,11 @@ import { auth } from '@/auth'
 import { cn } from "@/lib/utils";
 import './globals.css'
 import { Toaster } from "@/components/ui/sonner";
+import WalletconnectProvider from "@/providers/walletconnect-provider";
+import { headers } from "next/headers"; // added
+import { ReactQueryProvider } from '@/providers/react-query-provider';
+import { SolanaProvider } from '@/providers/solana-provider';
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,6 +25,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const session = await auth();
+  const cookies = headers().get('cookie')
 
   return (
     <SessionProvider session={session}>
@@ -29,14 +35,20 @@ export default async function RootLayout({
             "min-h-screen bg-background font-sans antialiased",
             inter.className
           )}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster />
-          </ThemeProvider>
+          <ReactQueryProvider>
+            <WalletconnectProvider cookies={cookies}>
+              <SolanaProvider>
+                <ThemeProvider
+                  attribute="class"
+                  defaultTheme="dark"
+                  disableTransitionOnChange
+                >
+                  {children}
+                  <Toaster />
+                </ThemeProvider>
+              </SolanaProvider>
+            </WalletconnectProvider>
+          </ReactQueryProvider>
         </body>
       </html>
     </SessionProvider>
