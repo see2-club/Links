@@ -29,9 +29,9 @@ export const loginTokenVerification = async (token: string) => {
   }
 
   // 刪除令牌以防止重複使用
-  // await db.loginToken.delete({
-  //   where: { token },
-  // });
+  await db.loginToken.delete({
+    where: { token },
+  });
 
   // 使用 NextAuth.js 進行登入
   try {
