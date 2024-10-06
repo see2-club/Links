@@ -18,10 +18,10 @@ export default function HeroSection() {
       className="relative mx-auto mt-32 max-w-[80rem] px-6 text-center md:px-8"
     >
       <div className="py-1 gap-4 px-1 backdrop-filter-[12px] inline-flex  items-center justify-between rounded-full border border-white/5 bg-white/10  text-xs text-white dark:text-black transition-all ease-in hover:cursor-pointer hover:bg-white/20 group  translate-y-[-1rem] animate-fade-in opacity-0">
+        <div className="w-fit bg-[#1E293B] rounded-full px-2 py-0.5 text-center text-xs font-medium text-primary sm:text-sm mr-2">
+          👀 Announcement
+        </div>
         <TextShimmer className="inline-flex items-center justify-center">
-          <div className="w-fit bg-[#1E293B] rounded-full px-2 py-0.5 text-center text-xs font-medium text-primary sm:text-sm mr-2">
-            👀 Announcement
-          </div>
           <span>Introducing see2.link</span>
           <MdOutlineOpenInNew className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 mr-2" />
         </TextShimmer>
