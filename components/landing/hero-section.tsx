@@ -8,6 +8,7 @@ import { MdOutlineOpenInNew } from "react-icons/md";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import Safari from "@/components/magicui/safari";
+import { Web3Lab } from '@/components/web3/lab';
 
 export default function HeroSection() {
   const ref = useRef(null);
@@ -33,6 +34,8 @@ export default function HeroSection() {
       <p className="mb-12 text-lg tracking-tight text-[#94A3B8] md:text-xl text-balance translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms]">
         Whether you&apos;re showcasing yourself or amplifying your vibe,
         <br className="hidden md:block" />See2.link is the place to make it happen.</p>
+        <Web3Lab />
+
       <Button className="translate-y-[-1rem] animate-fade-in gap-1 rounded-lg text-white dark:text-black opacity-0 ease-in-out [--animation-delay:600ms]">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M10.5224 9.85254L11.5217 7.44119C5.07655 7.19807 1.82174 13.7123 1 16.9998H7.59784L8.58927 14.5866H3.88955C5.75043 10.5794 9.07462 9.76089 10.5224 9.85254Z" fill="black" stroke="black" stroke-width="0.40678" />
