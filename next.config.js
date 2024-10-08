@@ -7,7 +7,7 @@ const nextConfig = {
         hostname: "i.pravatar.cc",
       },
     ],
-    domains: ['randomuser.me'],
+    domains: ['randomuser.me','startup-template-sage.vercel.app'],
   },
   
 };

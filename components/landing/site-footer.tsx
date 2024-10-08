@@ -4,6 +4,8 @@ import {
   See2BlackIcon,
   See2WhiteIcon,
 } from "@/components/icons"
+import { cn } from "@/lib/utils";
+import AnimatedGradientText from "@/components/magicui/animated-gradient-text";
 
 const footerNavs = [
   {
@@ -11,11 +13,11 @@ const footerNavs = [
     items: [
       {
         href: "/",
-        name: "Email Collection",
+        name: "See2 Life",
       },
       {
-        href: "/pricing",
-        name: "Pricing",
+        href: "/protocol",
+        name: "See2 Protocol",
       },
       {
         href: "/faq",
@@ -28,15 +30,15 @@ const footerNavs = [
     label: "Community",
     items: [
       {
-        href: "/",
+        href: "https://discord.gg/sUpBPVHaEU",
         name: "Discord",
       },
       {
-        href: "/",
+        href: "https://twitter.com/see2club",
         name: "Twitter",
       },
       {
-        href: "mailto:hello@chatcollect.com",
+        href: "mailto:support@see2.club",
         name: "Email",
       },
     ],
@@ -75,9 +77,9 @@ export function SiteFooter() {
     <footer>
       <div className="mx-auto w-full max-w-screen-xl xl:pb-2">
         <div className="md:flex md:justify-between px-8 p-4 py-16 sm:pb-16 gap-4">
-          <div className="mb-12 flex-col flex gap-4">
-            <Link href="/" className="flex items-center gap-2">
-            <See2BlackIcon className=" rounded-3xl mx-auto size-16 text-black dark:text-white lg:size-24" />
+          <div className="mb-12 flex-col flex gap-4 justify-start">
+            <Link href="https://www.see2.club/" target="_blank" className="flex items-center gap-2">
+              <See2BlackIcon className=" rounded-2xl  size-16 text-black dark:text-white lg:size-16" />
               {/* <img
                 src="https://magicui.design/icon.png"
                 className="h-8 w-8 text-primary"
@@ -86,7 +88,20 @@ export function SiteFooter() {
                 See2.link
               </span>
             </Link>
-            <p className="max-w-xs">UI Library for Design Engineers</p>
+            <a href="https://www.see2.club/" target="_blank"  >
+              <AnimatedGradientText>
+                👀 <hr className="mx-2 h-4 w-px shrink-0 bg-gray-300" />{" "}
+                <span
+                  className={cn(
+                    `inline animate-gradient bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`,
+                  )}
+                >
+                  See the Unseen Unleash Unparalleled Vision
+                </span>
+                <hr className="mx-2 h-4 w-px shrink-0 bg-gray-300" />{" "}
+                <p>Club See2</p>
+              </AnimatedGradientText>
+            </a>
           </div>
           <div className="grid grid-cols-1 gap-8 sm:gap-10 sm:grid-cols-3">
             {footerNavs.map((nav) => (

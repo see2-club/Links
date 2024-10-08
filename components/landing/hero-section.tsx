@@ -1,14 +1,14 @@
 "use client";
 
+import { useState, useRef } from "react";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import TextShimmer from "@/components/magicui/text-shimmer";
 import { Button } from "@/components/ui/button";
 import { FaWallet } from "react-icons/fa";
 import { MdOutlineOpenInNew } from "react-icons/md";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import Safari from "@/components/magicui/safari";
-import { Web3Lab } from '@/components/web3/lab';
+import Safari from "@/components/magicui/see2-safari";
+import HeroVideoDialog from "@/components/magicui/hero-video-dialog";
 
 export default function HeroSection() {
   const ref = useRef(null);
@@ -34,7 +34,6 @@ export default function HeroSection() {
       <p className="mb-12 text-lg tracking-tight text-[#94A3B8] md:text-xl text-balance translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms]">
         Whether you&apos;re showcasing yourself or amplifying your vibe,
         <br className="hidden md:block" />See2.link is the place to make it happen.</p>
-        <Web3Lab />
 
       <Button className="translate-y-[-1rem] animate-fade-in gap-1 rounded-lg text-white dark:text-black opacity-0 ease-in-out [--animation-delay:600ms]">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,10 +49,10 @@ export default function HeroSection() {
       </Button>
       <div
         ref={ref}
-        className="relative mt-[8rem] animate-fade-up opacity-0 [--animation-delay:400ms] [perspective:2000px] after:absolute after:inset-0 after:z-50 after:[background:linear-gradient(to_top,hsla(241 100% 7% / 0.53)_30%,transparent)]"
+        className=" mt-[8rem] animate-fade-up opacity-0 [--animation-delay:400ms] [perspective:2000px] after:absolute after:inset-0 after:z-10 after:[background:linear-gradient(to_top,hsla(241 100% 7% / 0.53)_30%,transparent)]"
       >
         <div
-          className={`rounded-xl border border-white/10 bg-white bg-opacity-[0.01] before:absolute before:bottom-1/2 before:left-0 before:top-0 before:h-full before:w-full before:opacity-0 before:[filter:blur(180px)] before:[background-image:linear-gradient(to_bottom,var(--color-one),var(--color-one),transparent_40%)] ${inView ? "before:animate-image-glow" : ""
+          className={`relative z-20 rounded-2xl border border-white/10 bg-white bg-opacity-[0.01] before:absolute before:bottom-1/2 before:left-0 before:top-0 before:h-full before:w-full before:opacity-0 before:[filter:blur(180px)] before:[background-image:linear-gradient(to_bottom,var(--color-one),var(--color-one),transparent_40%)] ${inView ? "before:animate-image-glow" : ""
             }`}
         >
           <BorderBeam
@@ -63,18 +62,15 @@ export default function HeroSection() {
             colorFrom="var(--color-one)"
             colorTo="var(--color-two)"
           />
-          <Safari url="see2.link" className="size-full rounded-[inherit] border object-contain" />
-
-          {/* <img
-            src="/hero-dark.png"
-            alt="Hero Image"
-            className="hidden relative w-full h-full rounded-[inherit] border object-contain dark:block"
-          />
-          <img
-            src="/hero-light.png"
-            alt="Hero Image"
-            className="block relative w-full h-full  rounded-[inherit] border object-contain dark:hidden"
-          /> */}
+          <Safari url="see2.link" className="size-full rounded-[inherit] border object-contain" >
+            <HeroVideoDialog
+              className="p-1 z-50 relative touch-auto"
+              animationStyle="top-in-bottom-out"
+              videoSrc="https://www.youtube.com/embed/Zjmoa3dL0tk?si=CsLr8aN-mlAVpTBr"
+              thumbnailSrc="/edit.png"
+              thumbnailAlt="Hero Video"
+            />
+          </Safari>
         </div>
       </div>
     </section>
