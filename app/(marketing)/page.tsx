@@ -11,11 +11,11 @@ export default async function Page() {
   return (
     <>
      <HeroSection />
-      <ClientSection />
+      {/* <ClientSection /> */}
       <SphereMask />
       <FeatureSection />
-      <BentoLayout />
-      <FeatureScroll1 />
+      {/* <BentoLayout /> */}
+      {/* <FeatureScroll1 /> */}
       <CallToActionSection />
       <Particles
         className="absolute inset-0 -z-10"
