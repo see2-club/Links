@@ -71,7 +71,7 @@ export default function HeroSection() {
             <HeroVideoDialog
               className="p-1 z-50 relative touch-auto"
               animationStyle="top-in-bottom-out"
-              videoSrc="https://www.youtube.com/embed/Zjmoa3dL0tk?si=CsLr8aN-mlAVpTBr"
+              videoSrc="https://www.youtube.com/embed/iOSsSkr7Cso?si=fxUg-NPjSlSMS-2l"
               thumbnailSrc="/edit.png"
               thumbnailAlt="Hero Video"
             />
