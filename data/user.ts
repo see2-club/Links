@@ -55,6 +55,7 @@ export const getUserByWalletSolana = async (walletAddress: string) => {
         user: true, // 包含關聯的用戶資料
       },
     });
+    if (!walletWithUser) return null; // 檢查 walletWithUser 是否為 null
     const user = walletWithUser.user; // 獲取用戶資料
     return user;
   } catch {
