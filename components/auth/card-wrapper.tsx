@@ -27,25 +27,26 @@ export const CardWrapper = ({
   showSocial
 }: CardWrapperProps) => {
   return (
-    <Card className="w-[400px] shadow-md">
+    <Card className=" w-fit shadow-md">
       <CardHeader>
         <Header label={headerLabel} />
       </CardHeader>
       <CardContent>
-        {children}
+        <div className="flex flex-col  md:flex-row w-full gap-8">
+          <div className="flex max-w-[400px] min-w-[350px] flex-col">
+            {children}
+          </div>
+          <div className="flex max-w-[400px] flex-col h-full justify-center items-center">
+            {showSocial && (
+              <Social />
+            )}
+            <Separator className="my-4" />
+            {showSocial && (
+              <Crypto />
+            )}
+          </div>
+        </div>
       </CardContent>
-      {showSocial && (
-        <CardFooter>
-          <Social />
-
-        </CardFooter>
-      )}
-      <Separator className="my-4" />
-      {showSocial && (
-        <CardFooter>
-          <Crypto />
-        </CardFooter>
-      )}
       <CardFooter>
         <BackButton
           label={backButtonLabel}

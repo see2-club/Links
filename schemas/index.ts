@@ -1,5 +1,10 @@
 import * as z from "zod";
-import { UserRole } from "@prisma/client";
+// import { UserRole } from "@prisma/client";
+
+enum UserRole {
+  ADMIN = "ADMIN",
+  USER = "USER",
+}
 
 export const SettingsSchema = z.object({
   handle: z.optional(z.string()),
@@ -59,6 +64,17 @@ export const MagicLinkSchema = z.object({
   }),
 });
 
+export const SolanaSchema = z.object({
+  message: z.string().min(1, {
+    message: "message is required",
+  }),
+  signature: z.string().min(1, {
+    message: "Signature is required",
+  }),
+  walletAddress: z.string().min(1, {
+    message: "walletAddress is required",
+  }),
+});
 
 export const RegisterSchema = z.object({
   handle: z.string().min(1, {
@@ -134,7 +150,7 @@ export const CreateProfileLinkSchema = z.object({
       }),
     })
   ).min(1, { message: "At least one link is required" })
-   .max(3, { message: "A maximum of three links are allowed" }),
+    .max(3, { message: "A maximum of three links are allowed" }),
 });
 
 export const CreateProfileUserInfoSchema = z.object({

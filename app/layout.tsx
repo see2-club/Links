@@ -36,7 +36,7 @@ export default async function RootLayout({
             inter.className
           )}>
           <ReactQueryProvider>
-            <WalletconnectProvider cookies={cookies}>
+            {/* <WalletconnectProvider cookies={cookies}> */}
               <SolanaProvider>
                 <ThemeProvider
                   attribute="class"
@@ -47,7 +47,7 @@ export default async function RootLayout({
                   <Toaster />
                 </ThemeProvider>
               </SolanaProvider>
-            </WalletconnectProvider>
+            {/* </WalletconnectProvider> */}
           </ReactQueryProvider>
         </body>
       </html>

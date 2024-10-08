@@ -32,6 +32,7 @@ export const newProfileRoutes = [
  */
 export const authRoutes = [
   "/auth/login",
+  "/auth/web3-login",
   "/auth/magic-link",
   "/auth/register",
   "/auth/error",

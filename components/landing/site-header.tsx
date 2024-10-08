@@ -107,8 +107,8 @@ export function SiteHeader() {
             <Logo  className="h-[32px]" />
             See2.link
           </Link>
-          <w3m-button />
-          <WalletButton />
+          {/* <w3m-button />
+          <WalletButton /> */}
           <div className="ml-auto flex h-full items-center">
             <Link className="mr-6 text-sm" href="/auth/signin">
               Log in
