@@ -164,7 +164,7 @@ export const LoginForm = () => {
       </Form>
       {!showTwoFactor && (
         <Button
-          className="w-full"
+          className="w-full mt-4"
           asChild
         >
           <Link href={"/auth/magic-link"}>

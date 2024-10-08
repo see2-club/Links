@@ -52,10 +52,10 @@ export const Web3SigninForm = () => {
   const form = useForm<z.infer<typeof CombinedSchema>>({
     resolver: zodResolver(CombinedSchema),
     defaultValues: {
-      handle: "test001",
-      email: "test001@example.com",
-      password: "test001@example.com",
-      name: "test001",
+      handle: "",
+      email: "",
+      password: "",
+      name: "",
       // 添加 SolanaSchema 中的默認值
       message: "", // 替換為 SolanaSchema 中的字段
       signature: "", // 替換為 SolanaSchema 中的字段

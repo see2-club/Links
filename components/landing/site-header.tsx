@@ -103,14 +103,14 @@ export function SiteHeader() {
     <>
       <header className="fixed left-0 top-0 z-50 w-full translate-y-[-1rem] animate-fade-in border-b opacity-0 backdrop-blur-[12px] [--animation-delay:600ms]">
         <div className="container flex h-[3.5rem] items-center justify-between">
-          <Link className="text-md flex items-center font-semibold mr-4" href="/">
-            <Logo  className="h-[32px]" />
-            See2.link
+          <Link className=" flex items-center mr-4" href="/">
+            <Logo  className="h-[24px]" />
+            <p className="ml-2 text-md font-semibold ">See2.link</p>
           </Link>
           {/* <w3m-button />
           <WalletButton /> */}
           <div className="ml-auto flex h-full items-center">
-            <Link className="mr-6 text-sm" href="/auth/signin">
+            <Link className="mr-6 text-sm" href="/auth/login">
               Log in
             </Link>
             <Link
