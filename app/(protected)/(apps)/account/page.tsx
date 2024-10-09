@@ -11,7 +11,7 @@ const AccountPage = async () => {
   const accounts = userAccounts?.accounts
 
   return (
-    <ScrollArea className="h-[calc(100vh-120px)]">
+    <>
       <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">SSO 帳號管理</h1>
       {/* <SSOManagementPage accounts={accounts ?? []} /> */}
       <div className="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-3 sm:p-4 text-sm">
@@ -26,9 +26,7 @@ const AccountPage = async () => {
           </div>
         </div>
       </div>
-    <AccountEditForm />
-      
-    </ScrollArea>
+    </>
   );
 }
 
