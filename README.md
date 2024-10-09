@@ -1,97 +1,27 @@
-# Next Auth v5 - Advanced Guide (2024) 10/26 see2link
+# SEE2-LINK
 
-![image](https://github.com/AntonioErdeljac/next-auth-v5-advanced-guide/assets/23248726/d0175397-8c3f-4e82-91c4-78c14f29bb81)
+![See2-Link-Banner](images/See2-Link-Banner.png)
 
-This is a repository for Next Auth v5 - Advanced Guide (2024)
+:globe_with_meridians: Official website: [Website](https://see2.club)<br/>
+:question: REM site: [REM](https://www.see2.club/rem)<br/>
+:books: Our information: [Information](https://info.see2.club)
+:movie_camera: https://www.youtube.com/@ClubSee2
 
-[VIDEO TUTORIAL](https://youtu.be/1MTyCvS05V4)
+## See2-Link
 
-Key Features:
-- 🔐 Next-auth v5 (Auth.js)
-- 🚀 Next.js 14 with server actions
-- 🔑 Credentials Provider
-- 🌐 OAuth Provider (Social login with Google & GitHub)
-- 🔒 Forgot password functionality
-- ✉️ Email verification
-- 📱 Two factor verification
-- 👥 User roles (Admin & User)
-- 🔓 Login component (Opens in redirect or modal)
-- 📝 Register component
-- 🤔 Forgot password component
-- ✅ Verification component
-- ⚠️ Error component
-- 🔘 Login button
-- 🚪 Logout button
-- 🚧 Role Gate
-- 🔍 Exploring next.js middleware
-- 📈 Extending & Exploring next-auth session
-- 🔄 Exploring next-auth callbacks
-- 👤 useCurrentUser hook
-- 🛂 useRole hook
-- 🧑 currentUser utility
-- 👮 currentRole utility
-- 🖥️ Example with server component
-- 💻 Example with client component
-- 👑 Render content for admins using RoleGate component
-- 🛡️ Protect API Routes for admins only
-- 🔐 Protect Server Actions for admins only
-- 📧 Change email with new verification in Settings page
-- 🔑 Change password with old password confirmation in Settings page
-- 🔔 Enable/disable two-factor auth in Settings page
-- 🔄 Change user role in Settings page (for development purposes only)
+:microscope: Your Ultimate Web 3.0 linktree: [See2-Link](https://see2.link)<br/>
+:computer: Read through the source code: [Main Repository](https://github.com/see2-club/Link)<br/>
 
-### Prerequisites
+## See2-Life
 
-**Node version 18.7.x**
+:microscope: Your Ultimate Web 3.0 life-style: [See2-Life](https://life.see2.club)<br/>
+:computer: Read through the source code: [Main Repository](https://github.com/see2-club/see2Life)<br/>
 
-### Cloning the repository
+## See2-club
 
-```shell
-git clone https://github.com/AntonioErdeljac/next-auth-v5-advanced-guide.git
-```
+Club See2 is a cutting-edge web 3.0 designer collective with a visionary goal: to explore the fusion of interaction and fashion in the digital realm.
 
-### Install packages
+Our mission is to empower users across the globe to craft their virtual identities, seamlessly connect them to the ever-evolving Web 3.0 landscape, and ultimately guide their experiences back into the physical world.
 
-```shell
-npm i
-```
+We firmly believe that each individual's unique life journey is a priceless asset, and through our platform, we're pioneering a fresh narrative that ensures every user's story is truly and authentically witnessed.
 
-### Setup .env file
-
-
-```js
-DATABASE_URL=
-DIRECT_URL=
-
-AUTH_SECRET=
-
-GITHUB_CLIENT_ID=
-GITHUB_CLIENT_SECRET=
-
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-
-RESEND_API_KEY=
-
-NEXT_PUBLIC_APP_URL=
-```
-
-### Setup Prisma
-```shell
-npx prisma generate
-npx prisma db push
-```
-
-### Start the app
-
-```shell
-npm run dev
-```
-
-## Available commands
-
-Running commands with npm `npm run [command]`
-
-| command         | description                              |
-| :-------------- | :--------------------------------------- |
-| `dev`           | Starts a development instance of the app |
